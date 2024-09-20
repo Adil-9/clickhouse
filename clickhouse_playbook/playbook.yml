@@ -1,0 +1,13 @@
+- name: Install and configure Zookeeper
+  hosts:
+    - zookeeper_servers
+  become: yes
+  roles:
+    - zookeeper
+    
+- name: Install and configure ClickHouse
+  hosts:
+    - clickhouse_servers
+  become: yes
+  roles:
+    - clickhouse

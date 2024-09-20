@@ -1,0 +1,4 @@
+- name: Restart ClickHouse server
+  service:
+    name: clickhouse-server
+    state: restarted

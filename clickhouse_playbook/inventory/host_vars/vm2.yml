@@ -1,0 +1,12 @@
+---
+ansible_host: 192.168.122.104 #host to deploy
+ansible_user: vm2
+ansible_become_pass: 1234
+
+#clickhouse-server configuration variables
+listen_host: 0.0.0.0 #tcp connection port clickhouse-server configuration
+replica_id: 1
+
+#clickhouse user config
+clickhouse_connect_user: default
+clickhouse_connect_password: password

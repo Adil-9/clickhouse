@@ -1,0 +1,51 @@
+- name: Install ZooKeeper
+  apt:
+    name:
+      - zookeeperd
+    state: present
+
+
+- name: Ensure ZooKeeper data directory exists
+  file:
+    path: /var/lib/zookeeper  # Adjust this path if your dataDir is different
+    state: directory
+    owner: zookeeper
+    group: zookeeper
+    mode: '0755'
+
+- name: Create myid file for ZooKeeper
+  template:
+    src: "{{ myid_file }}"
+    dest: /etc/zookeeper/conf/myid
+  # copy:
+  #   content: "{{ zookeeper_id }}"
+  #   dest: /etc/zookeeper/conf/myid  # Ensure this matches the dataDir path
+  #   owner: zookeeper
+  #   group: zookeeper
+  #   mode: '0644'
+
+- name: Configure ZooKeeper
+  template:
+    src: "{{ zoo_config }}"
+    dest: /etc/zookeeper/conf/zoo.cfg
+  notify:
+    - Restart ZooKeeper
+
+- name: Ensure ZooKeeper is started and enabled
+  service:
+    name: zookeeper
+    state: started
+    enabled: yes
+
+# - name: Verify ZooKeeper is running
+#   command: echo ruok | nc localhost 2181
+#   register: zookeeper_check
+#   changed_when: false
+#   failed_when: "'imok' not in zookeeper_check.stdout"
+
+- name: Display ZooKeeper status
+  debug:
+    msg: "ZooKeeper is running and responding correctly."
+
+
+

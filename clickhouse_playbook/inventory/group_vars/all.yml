@@ -1,0 +1,23 @@
+---
+#clickhouse-server configs path
+clickhouse_config: clickhouse_config.xml.j2
+zookeeper_config: zookeeper_config.xml.j2
+clickhouse_user_config: user_config.xml.j2
+
+#zookeeper configs
+zoo_config: zoo.cfg.j2
+myid_file: myid_zk.cfg.j2
+
+divisions:
+  - virtual_machines:
+      - ip_addr: 192.168.122.192
+        port: 9000
+        clickhouse_zk_node_id: 1  #should be same with zookeeper's myId for this ip 
+      - ip_addr: 192.168.122.104
+        port: 9000
+        clickhouse_zk_node_id: 2  #should be same with zookeeper's myId for this ip 
+
+
+shard_id: 1
+clickhouse_zk_node_port: 2181
+

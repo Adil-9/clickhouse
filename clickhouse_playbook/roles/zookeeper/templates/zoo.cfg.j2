@@ -1,0 +1,13 @@
+tickTime=2000
+initLimit=10
+syncLimit=5
+dataDir=/var/lib/zookeeper
+clientPort={{ clickhouse_zk_node_port }}
+
+{% for shard in divisions %}
+{% for ips in shard.virtual_machines %}
+
+server.{{ ips.clickhouse_zk_node_id }}={{ ips.ip_addr }}:2888:3888
+
+{% endfor %}
+{% endfor %}

@@ -1,0 +1,12 @@
+<clickhouse>
+    <zookeeper>
+        {% for shard in divisions %}
+        {% for ips in shard.virtual_machines %}
+        <node index="{{ ips.clickhouse_zk_node_id }}">
+            <host>{{ ips.ip_addr }}</host>
+            <port>{{ clickhouse_zk_node_port }}</port>
+        </node>
+        {% endfor %}
+        {% endfor %}
+    </zookeeper>
+</clickhouse>

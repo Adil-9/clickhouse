@@ -1,0 +1,22 @@
+<clickhouse>
+    <remote_servers>
+        <my_cluster>
+            {% for shard in divisions %}
+            <shard>
+                {% for ips in shard.virtual_machines %}
+                <replica>
+                    <host>{{ ips.ip_addr }}</host>
+                    <port>{{ ips.port }}</port>
+                </replica>
+                {% endfor %}
+            </shard>
+            {% endfor %}
+        </my_cluster>
+    </remote_servers>
+    <macros>
+        <shard>{{ shard_id }}</shard> 
+        <replica>{{ replica_id }}</replica> 
+    </macros>
+
+    <listen_host>{{ listen_host }}</listen_host>
+</clickhouse>
